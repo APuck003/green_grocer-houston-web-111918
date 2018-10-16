@@ -2,7 +2,7 @@ require "pry"
 
 def consolidate_cart(cart)
   new_hash = {}
-  cart.each do|product_hash|
+  cart.each do |product_hash|
     product_hash.each do |item, item_hash|
       if new_hash.has_key?(item)
         new_hash[item][:count] += 1
@@ -44,23 +44,29 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
-  # code here
   cart_total = 0
  
-  consolidated = consolidate_cart(cart: cart)
-  coupons_applied = apply_coupons(cart: consolidated, coupons: coupons)
-  clearance_applied = apply_clearance(cart: coupons_applied)
-
-  new_array = consolidated.collect do |item, properties|
-    properties[:price] * properties[:count]
+  consolidated = consolidate_cart(cart)
+  coupons_applied = apply_coupons(consolidated, coupons)
+  clearance_applied = apply_clearance(coupons_applied)
+  
+  clearance_applied.each do |item, details|
+    cart_total += details[:price] * details[:count]
   end
 
-  new_array.each do |x| 
-    cart_total += x 
-  end
+  # new_array = consolidated.collect do |item, properties|
+  #   properties[:price] * properties[:count]
+  # end
+
+  # new_array.each do |x| 
+  #   cart_total += x 
+  # end
 
   if cart_total >= 100
-    cart_total = (cart_total * 0.9).round(2)
+    # cart_total = (cart_total * 0.9).round(2)
+    cart_total -= cart_total * 0.1
+  else
+    cart_total
   end
-  cart_total
+  # cart_total
 end
