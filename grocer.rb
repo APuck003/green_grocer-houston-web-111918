@@ -1,6 +1,6 @@
 require "pry"
+
 def consolidate_cart(cart)
-  # code here
   new_hash = {}
   cart.each do|product_hash|
     product_hash.each do |item, item_hash|
