@@ -54,14 +54,6 @@ def checkout(cart, coupons)
     cart_total += details[:price] * details[:count]
   end
 
-  # new_array = consolidated.collect do |item, properties|
-  #   properties[:price] * properties[:count]
-  # end
-
-  # new_array.each do |x| 
-  #   cart_total += x 
-  # end
-
   if cart_total >= 100
     # cart_total = (cart_total * 0.9).round(2)
     cart_total -= cart_total * 0.1
